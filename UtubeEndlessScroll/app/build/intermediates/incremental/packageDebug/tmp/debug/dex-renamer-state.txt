@@ -1,0 +1,4 @@
+#Mon Nov 11 13:56:17 JST 2019
+base.0=/Users/s_song/AndroidStudioProjects/UtubeEndlessScroll/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
