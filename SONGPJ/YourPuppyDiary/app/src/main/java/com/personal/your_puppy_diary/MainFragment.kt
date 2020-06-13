@@ -1,10 +1,11 @@
-package com.example.yourpuppydiary
+package com.personal.your_puppy_diary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.your_puppy_diary.R
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
