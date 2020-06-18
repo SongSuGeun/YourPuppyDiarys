@@ -16,4 +16,7 @@
     <string name="title_home">ホーム</string>
     <string name="title_dashboard">キャレンダー</string>
     <string name="title_notifications">アラム</string>
+    <string name="my_puppy_diary">MY Puppy Diary</string>
+    <string name="copy_right_songsugeun_nall_right_reserved">Copy Right @SongSuGeun\nAll Right Reserved</string>
+    <string name="splashContent">私の大切なペットの\n育成日記ダイアリー</string>
 </resources>

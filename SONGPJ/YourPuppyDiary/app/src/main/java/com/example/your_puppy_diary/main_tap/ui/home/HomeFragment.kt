@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.your_puppy_diary.R
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -12,10 +13,10 @@ interface HomeFragmentView {
     fun requestData()
 }
 
-class HomeFragment : DaggerFragment(), HomeFragmentView {
+class HomeFragment : Fragment(), HomeFragmentView {
 
-    @Inject
-    lateinit var presenter: HomePresenter
+//    @Inject
+//    lateinit var presenter: HomePresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +28,7 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.requestData()
+//        presenter.requestData()
     }
 
     override fun requestData() {
