@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.example.yourpuppydiary"
@@ -61,10 +62,16 @@ dependencies {
     // design
     implementation 'com.android.support:design:29.0.0'
 
+    kapt 'com.google.dagger:dagger-android-processor:2.21'
+    kapt 'com.google.dagger:dagger-compiler:2.21'
+
     // dagger
     implementation "com.google.dagger:dagger:2.21"
     implementation "com.google.dagger:dagger-android:2.21"
     implementation "com.google.dagger:dagger-android-support:2.21"
     kapt "com.google.dagger:dagger-compiler:2.21"
     kapt "com.google.dagger:dagger-android-processor:2.21"
+
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }

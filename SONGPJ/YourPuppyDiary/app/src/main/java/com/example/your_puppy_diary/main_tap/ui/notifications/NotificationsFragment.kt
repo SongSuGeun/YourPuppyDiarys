@@ -3,6 +3,7 @@ package com.example.your_puppy_diary.main_tap.ui.notifications
 import android.app.AlarmManager
 import android.app.AlarmManager.INTERVAL_DAY
 import android.app.AlarmManager.RTC_WAKEUP
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Context.MODE_PRIVATE
@@ -11,14 +12,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main_tap.AlarmReceiver
 import com.example.your_puppy_diary.main_tap.ui.toast.basicAlarmToast
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import java.util.*
+import javax.inject.Inject
 
-class NotificationsFragment : Fragment() {
+interface NotificationView {
+
+}
+
+class NotificationsFragment @Inject constructor(): DaggerFragment(), NotificationView {
 
     companion object {
         private const val DAILY_ALARM = "daily_alarm"
@@ -26,7 +32,10 @@ class NotificationsFragment : Fragment() {
         private const val ALARM_MINUTE = "alarm_minute"
     }
 
-    lateinit var alarmManager: AlarmManager
+    @Inject
+    lateinit var presenter: NotificationPresenter
+
+    private lateinit var alarmManager: AlarmManager
     private var alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
 
     override fun onCreateView(
