@@ -1,8 +1,10 @@
 package com.example.your_puppy_diary.main_tap.ui.notifications
 
+import java.util.*
+
 interface NotificationPresenter {
     fun onclickAlarmStartButton(hour: Int, minute: Int)
-    fun onClickResetAlarmButton(hour: Int, minute: Int)
+    fun onClickResetAlarmButton()
 }
 
 class NotificationsPresenterImpl : NotificationPresenter {
@@ -14,10 +16,20 @@ class NotificationsPresenterImpl : NotificationPresenter {
     }
 
     override fun onclickAlarmStartButton(hour: Int, minute: Int) {
-        view.settingAlarm(hour, minute)
+        val calendar = Calendar.getInstance().apply {
+            this.timeInMillis = System.currentTimeMillis()
+            this.set(Calendar.HOUR_OF_DAY, hour)
+            this.set(Calendar.MINUTE, minute)
+            this.set(Calendar.SECOND, 0)
+        }
+        // 이미 지난 시간을 지정했다면 다음날 같은 시간으로 설정
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DATE, 1)
+        }
+        view.startAlarm(hour, minute,calendar)
     }
 
-    override fun onClickResetAlarmButton(hour: Int, minute: Int) {
-        view.resetAlarm(hour, minute)
+    override fun onClickResetAlarmButton() {
+        view.resetAlarm()
     }
 }

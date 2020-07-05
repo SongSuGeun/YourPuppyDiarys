@@ -19,5 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".main_tap.MainTopActivity" />
+        <receiver
+            android:name=".main_tap.AlarmReceiver"
+            android:exported="false" />
     </application>
 </manifest>
