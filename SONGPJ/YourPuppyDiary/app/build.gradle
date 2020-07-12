@@ -76,4 +76,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.21'
     kapt "com.google.dagger:dagger-compiler:2.21"
     kapt "com.google.dagger:dagger-android-processor:2.21"
+
+    // custom calendar https://github.com/prolificinteractive/material-calendarview
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 }
