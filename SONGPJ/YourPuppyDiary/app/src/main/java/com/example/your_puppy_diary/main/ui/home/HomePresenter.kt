@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap.ui.home
+package com.example.your_puppy_diary.main.ui.home
 
 interface HomePresenter {
     fun takeView()

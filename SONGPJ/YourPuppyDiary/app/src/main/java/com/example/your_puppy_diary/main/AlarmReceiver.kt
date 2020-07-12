@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap
+package com.example.your_puppy_diary.main
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,7 +10,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.your_puppy_diary.R
-import com.example.your_puppy_diary.main_tap.ui.toast.basicAlarmToast
+import com.example.your_puppy_diary.main.ui.toast.basicAlarmToast
 
 class AlarmReceiver : BroadcastReceiver() {
     companion object {

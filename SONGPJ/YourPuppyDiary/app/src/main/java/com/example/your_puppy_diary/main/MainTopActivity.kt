@@ -1,7 +1,6 @@
-package com.example.your_puppy_diary.main_tap
+package com.example.your_puppy_diary.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.your_puppy_diary.R

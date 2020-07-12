@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap.ui.toast
+package com.example.your_puppy_diary.main.ui.toast
 
 import android.content.Context
 import android.widget.Toast

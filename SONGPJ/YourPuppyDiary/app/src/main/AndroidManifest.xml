@@ -3,6 +3,7 @@
     package="com.example.your_puppy_diary">
 
     <application
+        android:name=".main.di.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,16 +12,16 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".main_tap.ui.splash.SplashScreenActivity"
+            android:name=".main.ui.splash.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main_tap.MainTopActivity" />
+        <activity android:name=".main.MainTopActivity" />
         <receiver
-            android:name=".main_tap.AlarmReceiver"
+            android:name=".main.AlarmReceiver"
             android:exported="false" />
     </application>
 </manifest>

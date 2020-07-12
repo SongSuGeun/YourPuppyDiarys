@@ -1,8 +1,8 @@
-package com.example.your_puppy_diary.main_tap.di
+package com.example.your_puppy_diary.main.di
 
-import com.example.your_puppy_diary.main_tap.MainTopActivity
-import com.example.your_puppy_diary.main_tap.ui.notifications.NotificationModule
-import com.example.your_puppy_diary.main_tap.ui.notifications.NotificationsFragment
+import com.example.your_puppy_diary.main.MainTopActivity
+import com.example.your_puppy_diary.main.ui.notifications.NotificationModule
+import com.example.your_puppy_diary.main.ui.notifications.NotificationsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

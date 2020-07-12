@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap.ui.dashboard
+package com.example.your_puppy_diary.main.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

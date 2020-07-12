@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap.ui.notifications
+package com.example.your_puppy_diary.main.ui.notifications
 
 import dagger.Module
 import dagger.Provides
@@ -7,7 +7,7 @@ import dagger.Provides
 class NotificationModule {
 
     @Provides
-    fun provideNotificationPresenter(): NotificationsPresenterImpl {
+    fun provideNotificationPresenter(): NotificationPresenter {
         return NotificationsPresenterImpl()
     }
 }

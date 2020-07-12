@@ -1,13 +1,14 @@
-package com.example.your_puppy_diary.main_tap.ui.notifications
+package com.example.your_puppy_diary.main.ui.notifications
 
 import java.util.*
+import javax.inject.Inject
 
 interface NotificationPresenter {
     fun onclickAlarmStartButton(hour: Int, minute: Int)
     fun onClickResetAlarmButton()
 }
 
-class NotificationsPresenterImpl : NotificationPresenter {
+class NotificationsPresenterImpl @Inject constructor(): NotificationPresenter {
 
     lateinit var view: NotificationsFragment
 

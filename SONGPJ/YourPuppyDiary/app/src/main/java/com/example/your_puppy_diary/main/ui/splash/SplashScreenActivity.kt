@@ -1,12 +1,9 @@
-package com.example.your_puppy_diary.main_tap.ui.splash
+package com.example.your_puppy_diary.main.ui.splash
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import com.example.your_puppy_diary.R
-import com.example.your_puppy_diary.main_tap.MainTopActivity
-
+import com.example.your_puppy_diary.main.MainTopActivity
 
 class SplashScreenActivity : Activity() {
 

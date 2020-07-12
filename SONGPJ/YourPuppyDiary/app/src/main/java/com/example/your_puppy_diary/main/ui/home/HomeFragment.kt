@@ -1,4 +1,4 @@
-package com.example.your_puppy_diary.main_tap.ui.home
+package com.example.your_puppy_diary.main.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.your_puppy_diary.R
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
 interface HomeFragmentView {
     fun requestData()

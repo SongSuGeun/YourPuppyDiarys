@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -55,6 +55,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+
     // plugin
     apply plugin: 'kotlin-android-extensions'
     apply plugin: 'kotlin-kapt'
@@ -65,13 +67,13 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.21'
     kapt 'com.google.dagger:dagger-compiler:2.21'
 
-    // dagger
-    implementation "com.google.dagger:dagger:2.21"
-    implementation "com.google.dagger:dagger-android:2.21"
-    implementation "com.google.dagger:dagger-android-support:2.21"
+    // Mockito
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
+    // Dagger
+    implementation 'com.google.dagger:dagger:2.21'
+    implementation 'com.google.dagger:dagger-android:2.21'
+    implementation 'com.google.dagger:dagger-android-support:2.21'
     kapt "com.google.dagger:dagger-compiler:2.21"
     kapt "com.google.dagger:dagger-android-processor:2.21"
-
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }
