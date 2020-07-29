@@ -6,13 +6,35 @@
     android:layout_height="match_parent"
     tools:context="com.example.your_puppy_diary.main.ui.dashboard.DashboardFragment">
 
-<!--    <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        android:id="@+id/calendarView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:mcv_showOtherDates="all"-->
-<!--        app:mcv_selectionColor="#00F"-->
-<!--        />-->
+    <com.skyhope.eventcalenderlibrary.CalenderEvent
+        android:id="@+id/calender_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:month_color="@color/colorPrimaryDark"
+        app:off_month_day_color="@color/colorPrimaryDark"
+        app:selector_color="@color/colorPrimary"
+        app:week_name_color="@color/colorPrimaryDark" />
+
+    <!--  TODO リサイクルーVIEWを具現して後に入れること-->
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/calender_event">-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calender_event" />
+
+
+    <!--    </ScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

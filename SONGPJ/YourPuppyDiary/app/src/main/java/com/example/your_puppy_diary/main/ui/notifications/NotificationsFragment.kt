@@ -34,7 +34,6 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
     lateinit var presenter: NotificationPresenter
 
     private lateinit var alarmManager: AlarmManager
-    private val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +45,8 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val presenter = NotificationsPresenterImpl()
         presenter.takeView(this)
+
         alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
         settingTimePicker()
 
@@ -77,6 +76,7 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
 
     fun resetAlarm() {
         requireContext().getSharedPreferences(DAILY_ALARM, MODE_PRIVATE).edit().clear().apply()
+        val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, alarmIntent, 0)
         alarmManager.cancel(pendingIntent)
         basicAlarmToast(requireContext(), null)
@@ -95,6 +95,7 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
     }
 
     private fun diaryNotification(calendar: Calendar) {
+        val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, alarmIntent, 0)
         // 사용자가 매일 알람을 허용했다면
         alarmManager.setRepeating(
