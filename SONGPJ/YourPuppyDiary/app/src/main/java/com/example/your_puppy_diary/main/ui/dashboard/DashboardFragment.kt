@@ -5,11 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.your_puppy_diary.R
+import com.example.your_puppy_diary.main.calendarMemo.CalendarMemoActivity
+import com.example.your_puppy_diary.main.data.CalendarModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import javax.inject.Inject
 
-class DashboardFragment : DaggerFragment() {
+interface DashboardView {
+    fun navigateCalenderMemo(calendarModel: CalendarModel)
+}
+
+class DashboardFragment : DaggerFragment(), DashboardView {
 
     @Inject
     lateinit var presenter: DashboardPresenter
@@ -27,7 +33,16 @@ class DashboardFragment : DaggerFragment() {
         presenter.takeView(this)
 
         calender_event.initCalderItemClickCallback {
+            // TODO 削除すること。
             presenter.onClickCalender(it.year, it.month, it.day)
         }
+
+        addCalendarMemo.setOnClickListener {
+            // TODO add Buttonで動くようにすること。
+        }
+    }
+
+    override fun navigateCalenderMemo(calendarModel: CalendarModel) {
+        startActivity(CalendarMemoActivity.getIntent(requireContext(), calendarModel))
     }
 }

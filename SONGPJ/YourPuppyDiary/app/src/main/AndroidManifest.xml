@@ -23,5 +23,7 @@
         <receiver
             android:name=".main.AlarmReceiver"
             android:exported="false" />
+
+        <activity android:name=".main.calendarMemo.CalendarMemoActivity" />
     </application>
 </manifest>
