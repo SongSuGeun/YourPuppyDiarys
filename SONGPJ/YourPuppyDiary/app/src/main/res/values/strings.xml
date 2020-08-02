@@ -26,4 +26,6 @@
     <string name="receive_alarm_title">アラム終了</string>
     <string name="receive_alarm_content">指定したアラムが時間です。</string>
     <string name="today_schedule">今日のスケジュール</string>
+    <string name="notification_time_setting">設定</string>
+    <string name="cancel">キャンセル</string>
 </resources>

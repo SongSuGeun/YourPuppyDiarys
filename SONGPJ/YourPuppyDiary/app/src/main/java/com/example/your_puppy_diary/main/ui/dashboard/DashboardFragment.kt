@@ -8,7 +8,7 @@ import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main.calendarMemo.CalendarMemoActivity
 import com.example.your_puppy_diary.main.data.CalendarModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.dashboard_frag.*
 import javax.inject.Inject
 
 interface DashboardView {
@@ -25,7 +25,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        return inflater.inflate(R.layout.dashboard_frag, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,12 +33,11 @@ class DashboardFragment : DaggerFragment(), DashboardView {
         presenter.takeView(this)
 
         calender_event.initCalderItemClickCallback {
-            // TODO 削除すること。
             presenter.onClickCalender(it.year, it.month, it.day)
         }
 
         addCalendarMemo.setOnClickListener {
-            // TODO add Buttonで動くようにすること。
+            presenter.onClickCalenderMemo()
         }
     }
 

@@ -8,7 +8,6 @@ interface HomePresenter {
 class HomePresenterImpl : HomePresenter {
 
     override fun takeView() {
-
     }
 
     override fun requestData() {

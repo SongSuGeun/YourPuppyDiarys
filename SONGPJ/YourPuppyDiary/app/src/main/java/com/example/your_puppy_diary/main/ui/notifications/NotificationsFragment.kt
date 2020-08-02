@@ -15,7 +15,7 @@ import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main.AlarmReceiver
 import com.example.your_puppy_diary.main.ui.toast.basicAlarmToast
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.notifications_frag.*
 import java.util.*
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        return inflater.inflate(R.layout.notifications_frag, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

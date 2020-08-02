@@ -6,6 +6,7 @@ import javax.inject.Inject
 interface DashboardPresenter {
     fun takeView(view: DashboardFragment)
     fun onClickCalender(year: Int, month: String, day: Int)
+    fun onClickCalenderMemo()
 }
 
 class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
@@ -19,6 +20,9 @@ class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
 
     override fun onClickCalender(year: Int, month: String, day: Int) {
         this.calendarModel = CalendarModel(year, month, day)
+    }
+
+    override fun onClickCalenderMemo() {
         view.navigateCalenderMemo(calendarModel)
     }
 }
