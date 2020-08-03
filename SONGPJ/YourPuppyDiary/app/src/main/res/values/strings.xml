@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">YourPuppyDiary</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_tap">MainTapActivity</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -28,4 +27,11 @@
     <string name="today_schedule">今日のスケジュール</string>
     <string name="notification_time_setting">設定</string>
     <string name="cancel">キャンセル</string>
+
+    <!--  calendar_memo  -->
+    <string name="calendar__memo_title">Title</string>
+    <string name="calendar_memo_content">Content</string>
+    <string name="calendar_memo_save">SAVE</string>
+    <string name="calendar_memo_cancel">CANCEL</string>
+    <string name="today_user_schedule_title">今日の日程はどうなりますか。</string>
 </resources>

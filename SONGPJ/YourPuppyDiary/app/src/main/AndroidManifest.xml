@@ -20,10 +20,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.MainTopActivity" />
+
         <receiver
             android:name=".main.AlarmReceiver"
             android:exported="false" />
 
-        <activity android:name=".main.calendarMemo.CalendarMemoActivity" />
+        <activity
+            android:name=".main.calendarMemo.CalendarMemoActivity"
+            android:theme="@style/Transparent" />
     </application>
 </manifest>
