@@ -19,14 +19,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/todayDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/today_user_schedule_date"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayTitle" />
+
+    <TextView
         android:id="@+id/calendar__memo_title"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:text="@string/calendar__memo_title"
+        android:text="@string/calendar_memo_title"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todayTitle" />
+        app:layout_constraintTop_toBottomOf="@id/todayDate" />
 
     <TextView
         android:id="@+id/calendar__memo_Content"
@@ -45,7 +57,7 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/calendar__memo_title"
-        app:layout_constraintTop_toBottomOf="@id/todayTitle" />
+        app:layout_constraintTop_toBottomOf="@id/todayDate" />
 
     <EditText
         android:id="@+id/insertContent"

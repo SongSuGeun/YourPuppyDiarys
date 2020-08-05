@@ -33,7 +33,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
         presenter.takeView(this)
 
         calender_event.initCalderItemClickCallback {
-            presenter.onClickCalender(it.year, it.month, it.day)
+            presenter.onClickCalender(it.year, it.monthNumber + 1, it.day)
         }
 
         addCalendarMemo.setOnClickListener {

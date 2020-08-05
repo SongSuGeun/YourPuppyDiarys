@@ -29,9 +29,10 @@
     <string name="cancel">キャンセル</string>
 
     <!--  calendar_memo  -->
-    <string name="calendar__memo_title">Title</string>
+    <string name="calendar_memo_title">Title</string>
     <string name="calendar_memo_content">Content</string>
     <string name="calendar_memo_save">SAVE</string>
     <string name="calendar_memo_cancel">CANCEL</string>
-    <string name="today_user_schedule_title">今日の日程はどうなりますか。</string>
+    <string name="today_user_schedule_title">日程はどうなりますか。</string>
+    <string name="today_user_schedule_date">選択した日は%d年%d月%d日です。</string>
 </resources>
