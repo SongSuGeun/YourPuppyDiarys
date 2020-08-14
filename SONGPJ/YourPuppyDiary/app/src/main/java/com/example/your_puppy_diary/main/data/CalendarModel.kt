@@ -6,18 +6,24 @@ import android.os.Parcelable
 data class CalendarModel(
     val year: Int,
     val month: Int,
-    val day: Int
+    val day: Int,
+    var title: String = "",
+    var content: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readString()!!
     )
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeInt(year)
         dest?.writeInt(month)
         dest?.writeInt(day)
+        dest?.writeString(title)
+        dest?.writeString(content)
     }
 
     override fun describeContents(): Int = 0

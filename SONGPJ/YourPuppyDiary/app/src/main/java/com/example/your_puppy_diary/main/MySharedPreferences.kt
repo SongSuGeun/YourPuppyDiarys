@@ -13,13 +13,11 @@ class MySharedPreferences(context: Context) {
 
     private val preferences: SharedPreferences = context.getSharedPreferences(CALENDAR_DATE, 0)
 
-    var myCalendar: CalendarModel?
-        set(calendarModel: CalendarModel?) {
-            val setGson: String = Gson().let {
-                it.toJson(myCalendar)
-            }
+    var myCalendar: CalendarModel
+        set(calendarModel) {
+            val setGson: String = Gson().toJson(myCalendar)
             preferences.edit()
-                .putString(CALENDAR_MODEL, setGson)
+                .putString(CALENDAR_MODEL.createDateKey(calendarModel), setGson)
                 .apply()
         }
         get() {

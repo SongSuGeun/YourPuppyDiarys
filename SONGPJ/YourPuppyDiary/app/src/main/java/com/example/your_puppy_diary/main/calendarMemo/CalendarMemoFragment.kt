@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.your_puppy_diary.R
+import com.example.your_puppy_diary.main.MySharedPreferences
 import com.example.your_puppy_diary.main.data.CalendarModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.calendar_frag.*
@@ -41,12 +42,12 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.takeView(this)
+        val sharedPreferences = MySharedPreferences(requireContext())
 
         val calendarModel = arguments?.getParcelable<CalendarModel>(CALENDAR_MEMO)
         calendarModel?.let {
             todayDate.text = initialSelectDate(calendarModel)
-            presenter.initDate(calendarModel)
+            presenter.initDate(calendarModel, sharedPreferences)
         }
 
         calendarMemoCancelButton.setOnClickListener {
@@ -56,6 +57,16 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
         calendarMemoSaveButton.setOnClickListener {
             presenter.onClickSaveButton(insertTitle.text.toString(), insertContent.text.toString())
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.takeView(this)
+    }
+
+    override fun onPause() {
+        presenter.dropView()
+        super.onPause()
     }
 
     override fun finishView() {
