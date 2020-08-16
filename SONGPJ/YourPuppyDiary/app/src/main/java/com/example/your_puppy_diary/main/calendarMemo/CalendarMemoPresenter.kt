@@ -40,7 +40,7 @@ class CalendarMemoPresenterImpl @Inject constructor() : CalendarMemoPresenter {
             this.title = title
             this.content = content
         }
-        sharedPreferences.myCalendar = calendarModel
+        sharedPreferences.editSharedPreference(calendarModel)
         view?.finishView()
     }
 }

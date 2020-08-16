@@ -24,6 +24,9 @@ class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
 
     override fun onClickCalender(year: Int, month: Int, day: Int) {
         this.calendarModel = CalendarModel(year, month, day)
+//        println("song-oncickcal")
+//        println(calendarModel)
+        view.showSelectCalenderMemo(calendarModel)
     }
 
     override fun onClickCalenderMemo() {
