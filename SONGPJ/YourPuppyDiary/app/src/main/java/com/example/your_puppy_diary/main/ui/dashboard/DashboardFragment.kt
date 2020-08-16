@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main.calendarMemo.CalendarMemoActivity
 import com.example.your_puppy_diary.main.data.CalendarModel
@@ -39,6 +40,16 @@ class DashboardFragment : DaggerFragment(), DashboardView {
         addCalendarMemo.setOnClickListener {
             presenter.onClickCalenderMemo()
         }
+
+        val model = arrayListOf(
+            CalendarModel(11, 22, 33, "aa", "bb"),
+            CalendarModel(11, 22, 33, "bb ", "cc")
+        )
+
+        val adapter = DashboardAdapter(requireContext(), model)
+        recyclerCalenderMemo.adapter = adapter
+        recyclerCalenderMemo.layoutManager = LinearLayoutManager(requireContext())
+        recyclerCalenderMemo.setHasFixedSize(true)
     }
 
     override fun navigateCalenderMemo(calendarModel: CalendarModel) {
