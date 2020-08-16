@@ -9,8 +9,10 @@ import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main.data.CalendarModel
 import kotlinx.android.synthetic.main.calendar_memo_item_list.view.*
 
-class DashboardAdapter(val context: Context, private val calendarModel: ArrayList<CalendarModel>?) :
-    RecyclerView.Adapter<DashboardAdapter.Holder>() {
+class DashboardAdapter(
+    val context: Context,
+    private val calendarModel: MutableList<CalendarModel>?
+) : RecyclerView.Adapter<DashboardAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =
@@ -23,7 +25,6 @@ class DashboardAdapter(val context: Context, private val calendarModel: ArrayLis
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        println(calendarModel)
         if (calendarModel != null) holder.bind(calendarModel[position])
         else holder.bind(null)
     }

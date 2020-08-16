@@ -36,12 +36,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calender_event" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCalenderMemo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <!-- TODO  HEIGHT調節すること。-->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todayScheduleView" />
+        app:layout_constraintTop_toBottomOf="@id/todayScheduleView">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCalenderMemo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

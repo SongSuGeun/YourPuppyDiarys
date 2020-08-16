@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.your_puppy_diary.main.data.CalendarModel
 import com.google.gson.Gson
-import java.time.LocalDate
+import com.google.gson.reflect.TypeToken
 
 class MySharedPreferences(context: Context) {
     companion object {
@@ -15,36 +15,30 @@ class MySharedPreferences(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences(CALENDAR_DATE, 0)
 
     fun editSharedPreference(calendarModel: CalendarModel) {
-        val setGson: String = Gson().toJson(calendarModel)
-        preferences.edit()
-            .putString(CALENDAR_MODEL.createDateKey(calendarModel), setGson)
-            .apply()
-    }
-
-    fun getSharedPreference(calendarModel: CalendarModel): ArrayList<CalendarModel>? {
-        val getGson = Gson()
-        val calendarModel = preferences.getString(CALENDAR_MODEL.createDateKey(calendarModel), "")
-        println(calendarModel)
-        return if (!calendarModel.isNullOrEmpty()) {
-            println("song getSharedPreference")
-            arrayListOf(getGson.fromJson(calendarModel, CalendarModel::class.java))
+        val editDate = CALENDAR_MODEL.createDateKey(calendarModel)
+        val getCalendarMemo = getSharedPreference(editDate)
+        if (getCalendarMemo.isNullOrEmpty()) {
+            val setGson = Gson().toJson(mutableListOf(calendarModel))
+            preferences.edit()
+                .putString(editDate, setGson)
+                .apply()
         } else {
-            return arrayListOf()
+            getCalendarMemo.add(calendarModel)
+            val setGson = Gson().toJson(getCalendarMemo)
+            preferences.edit()
+                .putString(editDate, setGson)
+                .apply()
         }
     }
 
-    fun getInitSharedPreference(todayDate: LocalDate = LocalDate.now()): ArrayList<CalendarModel>? {
+    fun getSharedPreference(showDate: String): MutableList<CalendarModel>? {
         val getGson = Gson()
-        val calendarModel = preferences.getString(CALENDAR_MODEL.createInitDateKey(todayDate), "")
-        println("song--0  ${calendarModel}")
-        println(calendarModel)
-        return if (!calendarModel.isNullOrEmpty()) {
-            println("song--1")
-            println(calendarModel)
-            arrayListOf(getGson.fromJson(calendarModel, CalendarModel::class.java))
+        val json = preferences.getString(showDate, "")
+        return if (!json.isNullOrEmpty()) {
+            val type = object : TypeToken<List<CalendarModel>?>() {}.type
+            getGson.fromJson(json, type)
         } else {
-            println("song--2")
-            return arrayListOf()
+            mutableListOf()
         }
     }
 }
