@@ -1,16 +1,24 @@
 package com.example.your_puppy_diary.main.ui.home
 
 interface HomePresenter {
-    fun takeView()
-    fun requestData()
+    fun takeView(view: HomeFragmentView)
+    fun onClickAddImageButton()
+    fun dropView()
 }
 
 class HomePresenterImpl : HomePresenter {
 
-    override fun takeView() {
+    private var view: HomeFragmentView? = null
+
+    override fun takeView(view: HomeFragmentView) {
+        this.view = view
     }
 
-    override fun requestData() {
+    override fun dropView() {
+        view = null
+    }
 
+    override fun onClickAddImageButton() {
+        view?.takePicture()
     }
 }
