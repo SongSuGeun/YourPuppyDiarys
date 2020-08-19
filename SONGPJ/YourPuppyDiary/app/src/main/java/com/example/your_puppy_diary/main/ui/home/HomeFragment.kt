@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.your_puppy_diary.R
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.home_frag.*
@@ -44,6 +45,7 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         addImageButton.setOnClickListener {
             presenter.onClickAddImageButton()
         }
+        initAdapter()
     }
 
     override fun onResume() {
@@ -82,5 +84,32 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         ).apply {
             currentPhotoPath = absolutePath
         }
+    }
+
+    private fun initAdapter() {
+        val dogImageList = mutableListOf<String>()
+        val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val filePath = directory?.listFiles()
+
+//        TODO 削除すること。
+//        println("song--0")
+//        println(directory)
+//        println(filePath)
+//        println(filePath.toString())
+
+        if (!filePath.isNullOrEmpty()) {
+            for (element in filePath) {
+                dogImageList.add(element.name)
+            }
+        }
+        println(dogImageList)
+
+        recyclerHome.layoutManager = LinearLayoutManager(requireContext())
+        recyclerHome.setHasFixedSize(true)
+        recyclerHome.isNestedScrollingEnabled = false
+
+        val adapter = HomeAdapter(requireContext(), dogImageList)
+        recyclerHome.adapter = adapter
+        recyclerHome.adapter?.notifyDataSetChanged()
     }
 }

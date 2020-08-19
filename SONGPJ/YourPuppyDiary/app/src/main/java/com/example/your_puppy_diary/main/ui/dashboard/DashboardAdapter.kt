@@ -25,7 +25,7 @@ class DashboardAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        if (calendarModel != null) holder.bind(calendarModel[position])
+        if (!calendarModel.isNullOrEmpty()) holder.bind(calendarModel[position])
         else holder.bind(null)
     }
 
