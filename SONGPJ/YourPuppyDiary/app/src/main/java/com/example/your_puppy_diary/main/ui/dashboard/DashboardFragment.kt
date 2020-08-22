@@ -1,5 +1,6 @@
 package com.example.your_puppy_diary.main.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,9 @@ class DashboardFragment : DaggerFragment(), DashboardView {
 
     companion object {
         private const val CALENDAR_MODEL = "calendarModel"
+        private const val CALENDAR_MEMO = "calendar_memo"
+        private const val REQUEST_CODE = 0
+        private const val REQUEST_OK = 1
     }
 
     @Inject
@@ -68,7 +72,23 @@ class DashboardFragment : DaggerFragment(), DashboardView {
     }
 
     override fun navigateCalenderMemo(calendarModel: CalendarModel) {
-        startActivity(CalendarMemoActivity.getIntent(requireContext(), calendarModel))
+        startActivityForResult(
+            CalendarMemoActivity.getIntent(requireContext(), calendarModel),
+            REQUEST_CODE
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == REQUEST_OK) {
+                val calendarModel =
+                    data?.getParcelableExtra<CalendarModel>(CALENDAR_MEMO)
+                calendarModel?.let {
+                    showSelectCalenderMemo(calendarModel)
+                }
+            }
+        }
     }
 
     override fun showSelectCalenderMemo(calendarModel: CalendarModel) {

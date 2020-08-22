@@ -27,7 +27,7 @@ class CalendarMemoPresenterImpl @Inject constructor() : CalendarMemoPresenter {
     }
 
     override fun onClickCancelButton() {
-        view?.finishView()
+        view?.finishView(calendarModel)
     }
 
     override fun initDate(calendarModel: CalendarModel, sharedPreferences: MySharedPreferences) {
@@ -41,6 +41,6 @@ class CalendarMemoPresenterImpl @Inject constructor() : CalendarMemoPresenter {
             this.content = content
         }
         sharedPreferences.editSharedPreference(calendarModel)
-        view?.finishView()
+        view?.finishView(calendarModel)
     }
 }

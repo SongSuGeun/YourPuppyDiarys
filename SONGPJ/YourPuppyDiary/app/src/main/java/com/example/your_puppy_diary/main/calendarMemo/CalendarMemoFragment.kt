@@ -1,5 +1,6 @@
 package com.example.your_puppy_diary.main.calendarMemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -15,12 +16,13 @@ import kotlinx.android.synthetic.main.calendar_frag.*
 import javax.inject.Inject
 
 interface CalendarMemoView {
-    fun finishView()
+    fun finishView(calendarMemo: CalendarModel?)
 }
 
 class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
 
     companion object {
+        private const val REQUEST_OK = 1
         private const val CALENDAR_MEMO = "calendar_memo"
         fun newInstance(calendarMemo: CalendarModel) = CalendarMemoFragment().apply {
             arguments = Bundle().apply {
@@ -69,7 +71,11 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
         super.onPause()
     }
 
-    override fun finishView() {
+
+    override fun finishView(calendarMemo: CalendarModel?) {
+        val intent = Intent()
+        intent.putExtra(CALENDAR_MEMO, calendarMemo)
+        requireActivity().setResult(REQUEST_OK, intent)
         requireActivity().finish()
     }
 
