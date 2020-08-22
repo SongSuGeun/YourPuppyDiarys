@@ -5,10 +5,8 @@ import dagger.Provides
 
 @Module
 class HomeModule {
-
     @Provides
     fun providesHomePresenter(): HomePresenter {
         return HomePresenterImpl()
     }
-
 }

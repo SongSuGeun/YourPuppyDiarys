@@ -5,7 +5,6 @@ import dagger.Provides
 
 @Module
 class DashboardModule {
-
     @Provides
     fun provideDashboardPresenter(): DashboardPresenter {
         return DashboardPresenterImpl()

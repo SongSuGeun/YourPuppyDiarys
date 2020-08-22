@@ -27,6 +27,7 @@
     <string name="today_schedule">今日のスケジュール</string>
     <string name="notification_time_setting">設定</string>
     <string name="cancel">キャンセル</string>
+    <string name="ok">OK</string>
 
     <!--  calendar_memo  -->
     <string name="calendar_memo_title">Title</string>
@@ -37,4 +38,6 @@
     <string name="today_user_schedule_date">選択した日は%d年%d月%d日です。</string>
     <string name="daily_my_dog_memory">可愛い子犬の日記</string>
     <string name="save_image">SAVE</string>
+    <string name="remove_image_confrim_title">画像削除</string>
+    <string name="remove_image_confirm_message">画像を削除しますか。</string>
 </resources>

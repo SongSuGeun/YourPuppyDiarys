@@ -14,9 +14,9 @@ interface CalendarMemoPresenter {
 
 class CalendarMemoPresenterImpl @Inject constructor() : CalendarMemoPresenter {
 
-    private var view: CalendarMemoView? = null
     lateinit var calendarModel: CalendarModel
     lateinit var sharedPreferences: MySharedPreferences
+    private var view: CalendarMemoView? = null
 
     override fun takeView(view: CalendarMemoView) {
         this.view = view

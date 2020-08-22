@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.example.your_puppy_diary.main.MainTopActivity
 
 class SplashScreenActivity : Activity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

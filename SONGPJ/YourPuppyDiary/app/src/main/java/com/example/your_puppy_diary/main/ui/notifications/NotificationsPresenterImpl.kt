@@ -7,11 +7,12 @@ interface NotificationPresenter {
     fun takeView(view: NotificationsFragment)
     fun onclickAlarmStartButton(hour: Int, minute: Int)
     fun onClickResetAlarmButton()
+    fun dropView()
 }
 
 class NotificationsPresenterImpl @Inject constructor() : NotificationPresenter {
 
-    lateinit var view: NotificationsFragment
+    var view: NotificationsFragment? = null
 
     override fun takeView(view: NotificationsFragment) {
         this.view = view
@@ -28,10 +29,14 @@ class NotificationsPresenterImpl @Inject constructor() : NotificationPresenter {
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1)
         }
-        view.startAlarm(hour, minute, calendar)
+        view?.startAlarm(hour, minute, calendar)
     }
 
     override fun onClickResetAlarmButton() {
-        view.resetAlarm()
+        view?.resetAlarm()
+    }
+
+    override fun dropView() {
+        view = null
     }
 }

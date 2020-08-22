@@ -4,6 +4,7 @@ interface HomePresenter {
     fun takeView(view: HomeFragmentView)
     fun onClickAddImageButton()
     fun dropView()
+    fun onClickRemoveImageButton(dogImageFile: String?)
 }
 
 class HomePresenterImpl : HomePresenter {
@@ -16,6 +17,10 @@ class HomePresenterImpl : HomePresenter {
 
     override fun dropView() {
         view = null
+    }
+
+    override fun onClickRemoveImageButton(dogImageFile: String?) {
+        view?.removeImage(dogImageFile)
     }
 
     override fun onClickAddImageButton() {

@@ -8,26 +8,35 @@ interface DashboardPresenter {
     fun takeView(view: DashboardFragment)
     fun onClickCalender(year: Int, month: Int, day: Int)
     fun onClickCalenderMemo()
+    fun dropView()
 }
 
 class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
 
     lateinit var calendarModel: CalendarModel
-    lateinit var view: DashboardView
+    var view: DashboardView? = null
 
     override fun takeView(view: DashboardFragment) {
         this.view = view
-        val todayDate = LocalDate.now()
-        this.calendarModel =
-            CalendarModel(todayDate.year, todayDate.monthValue, todayDate.dayOfMonth)
+        initTodayDate()
+    }
+
+    override fun dropView() {
+        view = null
     }
 
     override fun onClickCalender(year: Int, month: Int, day: Int) {
         this.calendarModel = CalendarModel(year, month, day)
-        view.showSelectCalenderMemo(calendarModel)
+        view?.showSelectCalenderMemo(calendarModel)
     }
 
     override fun onClickCalenderMemo() {
-        view.navigateCalenderMemo(calendarModel)
+        view?.navigateCalenderMemo(calendarModel)
+    }
+
+    private fun initTodayDate() {
+        val todayDate = LocalDate.now()
+        this.calendarModel =
+            CalendarModel(todayDate.year, todayDate.monthValue, todayDate.dayOfMonth)
     }
 }

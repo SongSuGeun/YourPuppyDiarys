@@ -1,6 +1,8 @@
 package com.example.your_puppy_diary.main.ui.home
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -14,23 +16,27 @@ import com.example.your_puppy_diary.R
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.home_frag.*
 import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 interface HomeFragmentView {
     fun takePicture()
+    fun removeImage(dogImageFile: String?)
 }
 
 class HomeFragment : DaggerFragment(), HomeFragmentView {
 
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
-        lateinit var currentPhotoPath: String
     }
 
     @Inject
     lateinit var presenter: HomePresenter
+
+    private var storageDir: File? = null
+    private var dogImageList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +48,11 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        initAdapter()
         addImageButton.setOnClickListener {
             presenter.onClickAddImageButton()
         }
-        initAdapter()
     }
 
     override fun onResume() {
@@ -66,50 +73,62 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         }
     }
 
+    override fun removeImage(dogImageFile: String?) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.remove_image_confrim_title)
+            .setMessage(R.string.remove_image_confirm_message)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                val file = File(storageDir, dogImageFile)
+                file.delete().run {
+                    initAdapter()
+                }
+            }.setNegativeButton(R.string.cancel) { _, _ -> }
+            .show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            saveBitmap(imageBitmap)
+            val bitmap = data?.extras?.get("data") as Bitmap
+            saveBitmap(bitmap)
         }
     }
 
-    private fun saveBitmap(bitmap: Bitmap): File {
+    @SuppressLint("SimpleDateFormat")
+    private fun saveBitmap(bitmap: Bitmap) {
         val timeStamp = SimpleDateFormat("yyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(
-            "JPEG_$timeStamp",
-            ".jpg",
-            storageDir
-        ).apply {
-            currentPhotoPath = absolutePath
-        }
+        val file = File(storageDir, "JPEG_${timeStamp}.jpg")
+        val fos = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        initAdapter()
     }
 
     private fun initAdapter() {
-        val dogImageList = mutableListOf<String>()
-        val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val filePath = directory?.listFiles()
-
-//        TODO 削除すること。
-//        println("song--0")
-//        println(directory)
-//        println(filePath)
-//        println(filePath.toString())
-
-        if (!filePath.isNullOrEmpty()) {
-            for (element in filePath) {
-                dogImageList.add(element.name)
-            }
-        }
-        println(dogImageList)
-
+        loadStorageFiles()
         recyclerHome.layoutManager = LinearLayoutManager(requireContext())
         recyclerHome.setHasFixedSize(true)
         recyclerHome.isNestedScrollingEnabled = false
 
         val adapter = HomeAdapter(requireContext(), dogImageList)
+        adapter.onClickItemListener(object : HomeAdapter.OnItemClickListener {
+            override fun onClickRemoveImageButton(view: View, position: Int) {
+                view.setOnClickListener {
+                    presenter.onClickRemoveImageButton(dogImageList[position])
+                }
+            }
+        })
         recyclerHome.adapter = adapter
         recyclerHome.adapter?.notifyDataSetChanged()
+    }
+
+    private fun loadStorageFiles() {
+        dogImageList = mutableListOf()
+        val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val filePath = directory?.listFiles()
+        if (!filePath.isNullOrEmpty()) {
+            for (element in filePath) {
+                dogImageList.add(element.name)
+            }
+        }
     }
 }

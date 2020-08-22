@@ -1,6 +1,5 @@
 package com.example.your_puppy_diary.main.ui.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,15 +58,13 @@ class DashboardFragment : DaggerFragment(), DashboardView {
     }
 
     override fun onResume() {
+        presenter.takeView(this)
         super.onResume()
     }
 
     override fun onPause() {
+        presenter.dropView()
         super.onPause()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun navigateCalenderMemo(calendarModel: CalendarModel) {
@@ -119,6 +116,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
                     recyclerCalenderMemo.adapter = adapter
                     recyclerCalenderMemo.adapter?.notifyDataSetChanged()
                 }
+
                 override fun onError(e: Throwable) {
                     Timber.d(e)
                 }

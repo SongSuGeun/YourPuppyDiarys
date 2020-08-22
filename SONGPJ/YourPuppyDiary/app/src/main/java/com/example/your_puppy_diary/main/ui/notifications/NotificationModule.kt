@@ -5,7 +5,6 @@ import dagger.Provides
 
 @Module
 class NotificationModule {
-
     @Provides
     fun provideNotificationPresenter(): NotificationPresenter {
         return NotificationsPresenterImpl()

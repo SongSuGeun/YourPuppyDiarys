@@ -45,8 +45,6 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.takeView(this)
-
         alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
         settingTimePicker()
 
@@ -60,6 +58,16 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
         cancelAlarmButton.setOnClickListener {
             presenter.onClickResetAlarmButton()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.takeView(this)
+    }
+
+    override fun onPause() {
+        presenter.dropView()
+        super.onPause()
     }
 
     fun startAlarm(hour: Int, minute: Int, calendar: Calendar) {
