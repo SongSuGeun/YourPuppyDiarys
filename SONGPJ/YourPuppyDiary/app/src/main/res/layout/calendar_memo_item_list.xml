@@ -30,4 +30,14 @@
         tool:layout_constraintTop_toBottomOf="@id/title"
         tools:text="This is Content" />
 
+    <ImageButton
+        android:id="@+id/removeCalendarMemoButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_delete_24"
+        tool:layout_constraintEnd_toEndOf="parent"
+        tool:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

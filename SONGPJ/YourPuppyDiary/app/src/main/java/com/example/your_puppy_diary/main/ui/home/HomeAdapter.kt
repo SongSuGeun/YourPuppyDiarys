@@ -10,6 +10,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.your_puppy_diary.R
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -85,6 +86,7 @@ class HomeAdapter(
             val bitmap = BitmapFactory.decodeStream(inputStream)
             Glide.with(context)
                 .load(bitmap)
+                .apply(RequestOptions().override(250, 250))
                 .into(itemView.dogImageView)
         }
     }
