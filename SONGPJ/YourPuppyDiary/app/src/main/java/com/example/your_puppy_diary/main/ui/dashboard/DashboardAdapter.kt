@@ -14,6 +14,16 @@ class DashboardAdapter(
     private val calendarModel: MutableList<CalendarModel>?
 ) : RecyclerView.Adapter<DashboardAdapter.Holder>() {
 
+    interface OnClickDashBoardListener {
+        fun onClickRemoveCalendarMemo(view: View, position: Int)
+    }
+
+    private var onClickRemoveCalendarMemoListener: OnClickDashBoardListener? = null
+
+    fun onClickItemListener(listener: OnClickDashBoardListener) {
+        this.onClickRemoveCalendarMemoListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =
             LayoutInflater.from(context).inflate(R.layout.calendar_memo_item_list, parent, false)
@@ -34,6 +44,10 @@ class DashboardAdapter(
             calendarModel?.let {
                 itemView.title.text = it.title
                 itemView.content.text = it.content
+            }
+
+            itemView.removeCalendarMemoButton.setOnClickListener {
+                onClickRemoveCalendarMemoListener?.onClickRemoveCalendarMemo(it, adapterPosition)
             }
         }
     }

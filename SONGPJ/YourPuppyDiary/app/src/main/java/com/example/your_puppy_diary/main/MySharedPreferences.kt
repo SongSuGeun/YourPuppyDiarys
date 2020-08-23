@@ -1,5 +1,6 @@
 package com.example.your_puppy_diary.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.your_puppy_diary.main.data.CalendarModel
@@ -31,7 +32,7 @@ class MySharedPreferences(context: Context) {
         }
     }
 
-    fun getSharedPreference(showDate: String): MutableList<CalendarModel>? {
+    fun getSharedPreference(showDate: String): MutableList<CalendarModel> {
         val getGson = Gson()
         val json = preferences.getString(showDate, "")
         return if (!json.isNullOrEmpty()) {
@@ -39,6 +40,22 @@ class MySharedPreferences(context: Context) {
             getGson.fromJson(json, type)
         } else {
             mutableListOf()
+        }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    fun removeSharedPreference(date: String, position: Int) {
+        val currentCalendarModel = getSharedPreference(date)
+        val editDate = CALENDAR_MODEL.createDateKey(currentCalendarModel.first())
+        if (currentCalendarModel.size == 1) {
+            preferences.edit().remove(editDate).apply()
+        } else if (!currentCalendarModel.isNullOrEmpty()) {
+            currentCalendarModel.removeAt(position)
+            preferences.edit().remove(editDate).apply()
+            val setGson = Gson().toJson(currentCalendarModel)
+            preferences.edit()
+                .putString(editDate, setGson)
+                .apply()
         }
     }
 }

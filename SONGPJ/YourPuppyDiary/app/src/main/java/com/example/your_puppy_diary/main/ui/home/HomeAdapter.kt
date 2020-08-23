@@ -30,10 +30,10 @@ class HomeAdapter(
         fun onClickRemoveImageButton(view: View, position: Int)
     }
 
-    private var mListener: OnItemClickListener? = null
+    private var onClickItemListener: OnItemClickListener? = null
 
     fun onClickItemListener(listener: OnItemClickListener) {
-        this.mListener = listener
+        this.onClickItemListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.Holder {
@@ -76,7 +76,7 @@ class HomeAdapter(
             }
 
             itemView.removeImageButton.setOnClickListener {
-                mListener?.onClickRemoveImageButton(it, adapterPosition)
+                onClickItemListener?.onClickRemoveImageButton(it, adapterPosition)
             }
         }
 

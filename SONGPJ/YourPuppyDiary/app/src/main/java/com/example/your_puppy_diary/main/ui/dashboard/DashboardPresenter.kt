@@ -9,6 +9,7 @@ interface DashboardPresenter {
     fun onClickCalender(year: Int, month: Int, day: Int)
     fun onClickCalenderMemo()
     fun dropView()
+    fun onClickRemoveCalendarMemoButton(date: String, position: Int)
 }
 
 class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
@@ -23,6 +24,10 @@ class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
 
     override fun dropView() {
         view = null
+    }
+
+    override fun onClickRemoveCalendarMemoButton(date: String, position: Int) {
+        view?.removeCalendarMemo(date, position)
     }
 
     override fun onClickCalender(year: Int, month: Int, day: Int) {
