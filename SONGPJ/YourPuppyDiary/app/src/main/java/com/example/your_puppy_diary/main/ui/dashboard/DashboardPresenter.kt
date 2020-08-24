@@ -1,5 +1,6 @@
 package com.example.your_puppy_diary.main.ui.dashboard
 
+import com.example.your_puppy_diary.main.createDateKey
 import com.example.your_puppy_diary.main.data.CalendarModel
 import java.time.LocalDate
 import javax.inject.Inject
@@ -13,6 +14,10 @@ interface DashboardPresenter {
 }
 
 class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
+
+    companion object {
+        private const val CALENDAR_MODEL = "calendarModel"
+    }
 
     lateinit var calendarModel: CalendarModel
     var view: DashboardView? = null
@@ -32,7 +37,8 @@ class DashboardPresenterImpl @Inject constructor() : DashboardPresenter {
 
     override fun onClickCalender(year: Int, month: Int, day: Int) {
         this.calendarModel = CalendarModel(year, month, day)
-        view?.showSelectCalenderMemo(calendarModel)
+        val date = createDateKey(calendarModel)
+        view?.showSelectCalenderMemo(date)
     }
 
     override fun onClickCalenderMemo() {

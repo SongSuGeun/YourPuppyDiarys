@@ -50,7 +50,6 @@ class HomeAdapter(
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         private val directory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         fun bind(dogImageList: MutableList<String>?, position: Int) {
@@ -66,7 +65,6 @@ class HomeAdapter(
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
-                    itemView.dogImageView.tag = position
                     itemView.dogImageView.visibility = VISIBLE
                     itemView.removeImageButton.visibility = VISIBLE
                 }

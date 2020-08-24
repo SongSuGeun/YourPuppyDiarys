@@ -22,8 +22,8 @@ interface CalendarMemoView {
 class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
 
     companion object {
-        private const val REQUEST_OK = 1
         private const val CALENDAR_MEMO = "calendar_memo"
+        private const val REQUEST_OK = 1
         fun newInstance(calendarMemo: CalendarModel) = CalendarMemoFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(CALENDAR_MEMO, calendarMemo)
@@ -45,8 +45,8 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = MySharedPreferences(requireContext())
-
         val calendarModel = arguments?.getParcelable<CalendarModel>(CALENDAR_MEMO)
+
         calendarModel?.let {
             todayDate.text = initialSelectDate(calendarModel)
             presenter.initDate(calendarModel, sharedPreferences)
@@ -71,10 +71,10 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
         super.onPause()
     }
 
-
     override fun finishView(calendarMemo: CalendarModel?) {
-        val intent = Intent()
-        intent.putExtra(CALENDAR_MEMO, calendarMemo)
+        val intent = Intent().apply {
+            this.putExtra(CALENDAR_MEMO, calendarMemo)
+        }
         requireActivity().setResult(REQUEST_OK, intent)
         requireActivity().finish()
     }

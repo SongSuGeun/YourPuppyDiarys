@@ -20,9 +20,11 @@ import java.util.*
 import javax.inject.Inject
 
 interface NotificationView {
+    fun startAlarm(hour: Int, minute: Int, calendar: Calendar)
+    fun resetAlarm()
 }
 
-class NotificationsFragment : DaggerFragment(), NotificationView {
+class NotificationsFragmentImpl : DaggerFragment(), NotificationView {
 
     companion object {
         private const val DAILY_ALARM = "daily_alarm"
@@ -70,7 +72,7 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
         super.onPause()
     }
 
-    fun startAlarm(hour: Int, minute: Int, calendar: Calendar) {
+    override fun startAlarm(hour: Int, minute: Int, calendar: Calendar) {
         val dateTimeText = resources.getString(R.string.setting_time, hour, minute)
         basicAlarmToast(requireContext(), dateTimeText)
 
@@ -82,7 +84,7 @@ class NotificationsFragment : DaggerFragment(), NotificationView {
         diaryNotification(calendar)
     }
 
-    fun resetAlarm() {
+    override fun resetAlarm() {
         requireContext().getSharedPreferences(DAILY_ALARM, MODE_PRIVATE).edit().clear().apply()
         val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, alarmIntent, 0)

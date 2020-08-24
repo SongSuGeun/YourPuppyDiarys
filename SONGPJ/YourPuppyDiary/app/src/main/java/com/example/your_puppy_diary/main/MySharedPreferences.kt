@@ -10,26 +10,22 @@ import com.google.gson.reflect.TypeToken
 class MySharedPreferences(context: Context) {
     companion object {
         private const val CALENDAR_DATE = "calendarDate"
-        private const val CALENDAR_MODEL = "calendarModel"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(CALENDAR_DATE, 0)
 
     fun editSharedPreference(calendarModel: CalendarModel) {
-        val editDate = CALENDAR_MODEL.createDateKey(calendarModel)
+        val editDate = createDateKey(calendarModel)
         val getCalendarMemo = getSharedPreference(editDate)
-        if (getCalendarMemo.isNullOrEmpty()) {
-            val setGson = Gson().toJson(mutableListOf(calendarModel))
-            preferences.edit()
-                .putString(editDate, setGson)
-                .apply()
+        val setGson = if (getCalendarMemo.isNullOrEmpty()) {
+            Gson().toJson(mutableListOf(calendarModel))
         } else {
             getCalendarMemo.add(calendarModel)
-            val setGson = Gson().toJson(getCalendarMemo)
-            preferences.edit()
-                .putString(editDate, setGson)
-                .apply()
+            Gson().toJson(getCalendarMemo)
         }
+        preferences.edit()
+            .putString(editDate, setGson)
+            .apply()
     }
 
     fun getSharedPreference(showDate: String): MutableList<CalendarModel> {
@@ -46,12 +42,12 @@ class MySharedPreferences(context: Context) {
     @SuppressLint("CommitPrefEdits")
     fun removeSharedPreference(date: String, position: Int) {
         val currentCalendarModel = getSharedPreference(date)
-        val editDate = CALENDAR_MODEL.createDateKey(currentCalendarModel.first())
-        if (currentCalendarModel.size == 1) {
-            preferences.edit().remove(editDate).apply()
-        } else if (!currentCalendarModel.isNullOrEmpty()) {
+        val editDate = createDateKey(currentCalendarModel.first())
+        preferences.edit()
+            .remove(editDate)
+            .apply()
+        if (!currentCalendarModel.isNullOrEmpty()) {
             currentCalendarModel.removeAt(position)
-            preferences.edit().remove(editDate).apply()
             val setGson = Gson().toJson(currentCalendarModel)
             preferences.edit()
                 .putString(editDate, setGson)

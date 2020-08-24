@@ -49,10 +49,10 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        initAdapter()
         addImageButton.setOnClickListener {
             presenter.onClickAddImageButton()
         }
+        initAdapter()
     }
 
     override fun onResume() {
@@ -97,14 +97,14 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
     @SuppressLint("SimpleDateFormat")
     private fun saveBitmap(bitmap: Bitmap) {
         val timeStamp = SimpleDateFormat("yyyMMdd_HHmmss").format(Date())
-        val file = File(storageDir, "JPEG_${timeStamp}.jpg")
+        val file = File(storageDir, "${timeStamp}.jpg")
         val fos = FileOutputStream(file)
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
         initAdapter()
     }
 
     private fun initAdapter() {
-        loadStorageFiles()
+        loadStorageFileList()
         recyclerHome.layoutManager = LinearLayoutManager(requireContext())
         recyclerHome.setHasFixedSize(true)
         recyclerHome.isNestedScrollingEnabled = false
@@ -121,7 +121,7 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         recyclerHome.adapter?.notifyDataSetChanged()
     }
 
-    private fun loadStorageFiles() {
+    private fun loadStorageFileList() {
         dogImageList = mutableListOf()
         val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val filePath = directory?.listFiles()

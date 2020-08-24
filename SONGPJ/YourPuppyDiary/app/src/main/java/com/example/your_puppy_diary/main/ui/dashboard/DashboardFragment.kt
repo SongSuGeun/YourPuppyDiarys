@@ -2,9 +2,7 @@ package com.example.your_puppy_diary.main.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.your_puppy_diary.R
 import com.example.your_puppy_diary.main.MySharedPreferences
@@ -24,7 +22,7 @@ import javax.inject.Inject
 
 interface DashboardView {
     fun navigateCalenderMemo(calendarModel: CalendarModel)
-    fun showSelectCalenderMemo(calendarModel: CalendarModel)
+    fun showSelectCalenderMemo(date: String)
     fun removeCalendarMemo(date: String, position: Int)
 }
 
@@ -40,6 +38,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
     @Inject
     lateinit var presenter: DashboardPresenter
     private var calendarModelList: MutableList<CalendarModel>? = mutableListOf()
+    private lateinit var mySharedPreferences: MySharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +50,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.takeView(this)
+
         calender_event.initCalderItemClickCallback {
             presenter.onClickCalender(it.year, it.monthNumber + 1, it.day)
         }
@@ -59,12 +58,15 @@ class DashboardFragment : DaggerFragment(), DashboardView {
         addCalendarMemo.setOnClickListener {
             presenter.onClickCalenderMemo()
         }
-        initAdapter()
+        mySharedPreferences = MySharedPreferences(requireContext())
+
+        val date = createInitDateKey(LocalDate.now())
+        showSelectCalenderMemo(date)
     }
 
     override fun onResume() {
-        presenter.takeView(this)
         super.onResume()
+        presenter.takeView(this)
     }
 
     override fun onPause() {
@@ -74,28 +76,23 @@ class DashboardFragment : DaggerFragment(), DashboardView {
 
     override fun navigateCalenderMemo(calendarModel: CalendarModel) {
         startActivityForResult(
-            CalendarMemoActivity.getIntent(requireContext(), calendarModel),
-            REQUEST_CODE
+            CalendarMemoActivity.getIntent(requireContext(), calendarModel), REQUEST_CODE
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == REQUEST_OK) {
-                val calendarModel =
-                    data?.getParcelableExtra<CalendarModel>(CALENDAR_MEMO)
-                calendarModel?.let {
-                    showSelectCalenderMemo(calendarModel)
-                }
+        if (requestCode == REQUEST_CODE && resultCode == REQUEST_OK) {
+            val calendarModel = data?.getParcelableExtra<CalendarModel>(CALENDAR_MEMO)
+            calendarModel?.let {
+                val date = createDateKey(calendarModel)
+                showSelectCalenderMemo(date)
             }
         }
     }
 
-    override fun showSelectCalenderMemo(calendarModel: CalendarModel) {
-        val mySharedPreferences = MySharedPreferences(requireContext())
-        val showDate = CALENDAR_MODEL.createDateKey(calendarModel)
-        Single.just(mySharedPreferences.getSharedPreference(showDate))
+    override fun showSelectCalenderMemo(date: String) {
+        Single.just(mySharedPreferences.getSharedPreference(date))
             .subscribeOn(io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<MutableList<CalendarModel>?>() {
@@ -110,13 +107,14 @@ class DashboardFragment : DaggerFragment(), DashboardView {
                     adapter.onClickItemListener(object : DashboardAdapter.OnClickDashBoardListener {
                         override fun onClickRemoveCalendarMemo(view: View, position: Int) {
                             view.setOnClickListener {
-                                presenter.onClickRemoveCalendarMemoButton(showDate, position)
+                                presenter.onClickRemoveCalendarMemoButton(date, position)
                             }
                         }
                     })
                     recyclerCalenderMemo.adapter = adapter
                     recyclerCalenderMemo.adapter?.notifyDataSetChanged()
                 }
+
                 override fun onError(e: Throwable) {
                     Timber.d(e)
                 }
@@ -124,47 +122,7 @@ class DashboardFragment : DaggerFragment(), DashboardView {
     }
 
     override fun removeCalendarMemo(date: String, position: Int) {
-        val mySharedPreferences = MySharedPreferences(requireContext())
         mySharedPreferences.removeSharedPreference(date, position)
-        val getSharedPreferences = mySharedPreferences.getSharedPreference(date)
-        if (getSharedPreferences.isNullOrEmpty()) {
-            initAdapter()
-        } else {
-            showSelectCalenderMemo(getSharedPreferences.first())
-        }
-    }
-
-    private fun initAdapter() {
-        val mySharedPreferences = MySharedPreferences(requireContext())
-        val initDate = CALENDAR_MODEL.createInitDateKey(LocalDate.now())
-
-        Single.just(mySharedPreferences.getSharedPreference(initDate))
-            .subscribeOn(io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<MutableList<CalendarModel>?>() {
-                override fun onSuccess(result: MutableList<CalendarModel>) {
-                    calendarModelList = result
-
-                    // Adapter処理
-                    recyclerCalenderMemo.layoutManager = LinearLayoutManager(requireContext())
-                    recyclerCalenderMemo.setHasFixedSize(true)
-                    recyclerCalenderMemo.isNestedScrollingEnabled = false
-
-                    val adapter = DashboardAdapter(requireContext(), calendarModelList)
-                    adapter.onClickItemListener(object : DashboardAdapter.OnClickDashBoardListener {
-                        override fun onClickRemoveCalendarMemo(view: View, position: Int) {
-                            view.setOnClickListener {
-                                presenter.onClickRemoveCalendarMemoButton(initDate, position)
-                            }
-                        }
-                    })
-                    recyclerCalenderMemo.adapter = adapter
-                    recyclerCalenderMemo.adapter?.notifyDataSetChanged()
-                }
-
-                override fun onError(e: Throwable) {
-                    Timber.d(e)
-                }
-            })
+        showSelectCalenderMemo(date)
     }
 }

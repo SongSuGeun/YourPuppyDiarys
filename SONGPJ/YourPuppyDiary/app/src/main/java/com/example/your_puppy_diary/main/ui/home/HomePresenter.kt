@@ -2,8 +2,8 @@ package com.example.your_puppy_diary.main.ui.home
 
 interface HomePresenter {
     fun takeView(view: HomeFragmentView)
-    fun onClickAddImageButton()
     fun dropView()
+    fun onClickAddImageButton()
     fun onClickRemoveImageButton(dogImageFile: String?)
 }
 

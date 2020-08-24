@@ -9,7 +9,7 @@ import com.example.your_puppy_diary.main.ui.dashboard.DashboardModule
 import com.example.your_puppy_diary.main.ui.home.HomeFragment
 import com.example.your_puppy_diary.main.ui.home.HomeModule
 import com.example.your_puppy_diary.main.ui.notifications.NotificationModule
-import com.example.your_puppy_diary.main.ui.notifications.NotificationsFragment
+import com.example.your_puppy_diary.main.ui.notifications.NotificationsFragmentImpl
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -23,7 +23,7 @@ abstract class BindingModule {
     abstract fun calendarMemo(): CalendarMemoActivity
 
     @ContributesAndroidInjector(modules = [NotificationModule::class])
-    abstract fun notificationFragment(): NotificationsFragment
+    abstract fun notificationFragment(): NotificationsFragmentImpl
 
     @ContributesAndroidInjector(modules = [DashboardModule::class])
     abstract fun dashBoardFragment(): DashboardFragment

@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.your_puppy_diary.main.ui.notifications.NotificationsFragment"
+        android:name="com.example.your_puppy_diary.main.ui.notifications.NotificationsFragmentImpl"
         android:label="@string/title_notifications"
         tools:layout="@layout/notifications_frag" />
 </navigation>

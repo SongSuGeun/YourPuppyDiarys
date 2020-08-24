@@ -4,18 +4,22 @@ import java.util.*
 import javax.inject.Inject
 
 interface NotificationPresenter {
-    fun takeView(view: NotificationsFragment)
+    fun takeView(view: NotificationView)
+    fun dropView()
     fun onclickAlarmStartButton(hour: Int, minute: Int)
     fun onClickResetAlarmButton()
-    fun dropView()
 }
 
 class NotificationsPresenterImpl @Inject constructor() : NotificationPresenter {
 
-    var view: NotificationsFragment? = null
+    var view: NotificationView? = null
 
-    override fun takeView(view: NotificationsFragment) {
+    override fun takeView(view: NotificationView) {
         this.view = view
+    }
+
+    override fun dropView() {
+        view = null
     }
 
     override fun onclickAlarmStartButton(hour: Int, minute: Int) {
@@ -34,9 +38,5 @@ class NotificationsPresenterImpl @Inject constructor() : NotificationPresenter {
 
     override fun onClickResetAlarmButton() {
         view?.resetAlarm()
-    }
-
-    override fun dropView() {
-        view = null
     }
 }
