@@ -32,4 +32,43 @@
         android:text="@string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notificationTimePicker" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/flower_marigold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_body" />
+
+    <ImageView
+        android:id="@+id/freePuppyImage"
+        android:layout_width="180dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/dog_pomeranian_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_body" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="85dp"
+        android:src="@drawable/flower_ooinunofuguri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_body" />
+
+    <TextView
+        android:id="@+id/message_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="10sp"
+        android:text="@string/play_with_puppy"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cancelAlarmButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

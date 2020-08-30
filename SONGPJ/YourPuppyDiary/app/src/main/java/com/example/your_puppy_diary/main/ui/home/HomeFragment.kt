@@ -52,7 +52,7 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         addImageButton.setOnClickListener {
             presenter.onClickAddImageButton()
         }
-        initAdapter()
+        recyclerHome.adapter ?: initAdapter()
     }
 
     override fun onResume() {
@@ -80,7 +80,8 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
             .setPositiveButton(R.string.ok) { _, _ ->
                 val file = File(storageDir, dogImageFile)
                 file.delete().run {
-                    initAdapter()
+                    dogImageList.remove(dogImageFile)
+                    recyclerHome.adapter?.notifyDataSetChanged()
                 }
             }.setNegativeButton(R.string.cancel) { _, _ -> }
             .show()
@@ -100,7 +101,8 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         val file = File(storageDir, "${timeStamp}.jpg")
         val fos = FileOutputStream(file)
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        initAdapter()
+        dogImageList.add(file.name)
+        recyclerHome.adapter?.notifyDataSetChanged()
     }
 
     private fun initAdapter() {
@@ -109,16 +111,16 @@ class HomeFragment : DaggerFragment(), HomeFragmentView {
         recyclerHome.setHasFixedSize(true)
         recyclerHome.isNestedScrollingEnabled = false
 
-        val adapter = HomeAdapter(requireContext(), dogImageList)
-        adapter.onClickItemListener(object : HomeAdapter.OnItemClickListener {
-            override fun onClickRemoveImageButton(view: View, position: Int) {
-                view.setOnClickListener {
-                    presenter.onClickRemoveImageButton(dogImageList[position])
+        recyclerHome.adapter = HomeAdapter(
+            requireContext(),
+            dogImageList,
+            object : HomeAdapter.OnItemClickListener {
+                override fun onClickRemoveImageButton(view: View, position: Int) {
+                    view.setOnClickListener {
+                        presenter.onClickRemoveImageButton(dogImageList[position])
+                    }
                 }
-            }
-        })
-        recyclerHome.adapter = adapter
-        recyclerHome.adapter?.notifyDataSetChanged()
+            })
     }
 
     private fun loadStorageFileList() {

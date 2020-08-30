@@ -11,17 +11,12 @@ import kotlinx.android.synthetic.main.calendar_memo_item_list.view.*
 
 class DashboardAdapter(
     val context: Context,
-    private val calendarModel: MutableList<CalendarModel>?
+    private val calendarModel: MutableList<CalendarModel>?,
+    private val onClickItemListener: OnClickDashBoardListener
 ) : RecyclerView.Adapter<DashboardAdapter.Holder>() {
 
     interface OnClickDashBoardListener {
         fun onClickRemoveCalendarMemo(view: View, position: Int)
-    }
-
-    private var onClickRemoveCalendarMemoListener: OnClickDashBoardListener? = null
-
-    fun onClickItemListener(listener: OnClickDashBoardListener) {
-        this.onClickRemoveCalendarMemoListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -46,9 +41,10 @@ class DashboardAdapter(
                 itemView.content.text = it.content
             }
 
-            itemView.removeCalendarMemoButton.setOnClickListener {
-                onClickRemoveCalendarMemoListener?.onClickRemoveCalendarMemo(it, adapterPosition)
-            }
+            onClickItemListener.onClickRemoveCalendarMemo(
+                itemView.removeCalendarMemoButton,
+                adapterPosition
+            )
         }
     }
 }

@@ -36,11 +36,15 @@ class CalendarMemoPresenterImpl @Inject constructor() : CalendarMemoPresenter {
     }
 
     override fun onClickSaveButton(title: String, content: String) {
-        with(calendarModel) {
-            this.title = title
-            this.content = content
+        if (title.isEmpty() || content.isEmpty()) {
+            view?.showWarningDialog()
+        } else {
+            with(calendarModel) {
+                this.title = title
+                this.content = content
+            }
+            sharedPreferences.editSharedPreference(calendarModel)
+            view?.finishView(calendarModel)
         }
-        sharedPreferences.editSharedPreference(calendarModel)
-        view?.finishView(calendarModel)
     }
 }

@@ -16,8 +16,8 @@
     <string name="title_home">ホーム</string>
     <string name="title_dashboard">キャレンダー</string>
     <string name="title_notifications">アラム</string>
-    <string name="my_puppy_diary">MY Puppy Diary</string>
-    <string name="copy_right_songsugeun_nall_right_reserved">Copy Right @SongSuGeun\nAll Right Reserved</string>
+    <string name="my_puppy_diary">Your Puppy Diary</string>
+    <string name="copy_right_songsugeun_nall_right_reserved">App Copy Right: Mingshun\nImage Copy Right: irasutoya.com</string>
     <string name="splashContent">私の大切なペットの\n育成日記ダイアリー</string>
 
     <string name="setting_time">%1$d時%2$d分にアラム設定されました。</string>
@@ -41,4 +41,7 @@
     <string name="save_image">SAVE</string>
     <string name="remove_image_confrim_title">画像削除</string>
     <string name="remove_image_confirm_message">画像を削除しますか。</string>
+    <string name="play_with_puppy">設定した時間まで子犬と遊んでください。</string>
+    <string name="need_to_title">必須項目</string>
+    <string name="need_to_content">タイトルと内容を記入してください。</string>
 </resources>

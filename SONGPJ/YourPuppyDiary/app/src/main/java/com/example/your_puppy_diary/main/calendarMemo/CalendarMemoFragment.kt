@@ -1,5 +1,6 @@
 package com.example.your_puppy_diary.main.calendarMemo
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 interface CalendarMemoView {
     fun finishView(calendarMemo: CalendarModel?)
+    fun showWarningDialog()
 }
 
 class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
@@ -77,6 +79,14 @@ class CalendarMemoFragment : DaggerFragment(), CalendarMemoView {
         }
         requireActivity().setResult(REQUEST_OK, intent)
         requireActivity().finish()
+    }
+
+    override fun showWarningDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.need_to_title)
+            .setMessage(R.string.need_to_content)
+            .setPositiveButton(R.string.ok) { _, _ -> }
+            .show()
     }
 
     private fun initialSelectDate(calendarMemo: CalendarModel): SpannableString {

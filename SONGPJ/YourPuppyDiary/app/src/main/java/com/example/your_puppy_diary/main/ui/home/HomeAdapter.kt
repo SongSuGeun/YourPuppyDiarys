@@ -10,7 +10,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.your_puppy_diary.R
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,17 +22,12 @@ import java.io.FileInputStream
 
 class HomeAdapter(
     val context: Context,
-    private val dogImageList: MutableList<String>?
+    private val dogImageList: MutableList<String>?,
+    private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<HomeAdapter.Holder>() {
 
     interface OnItemClickListener {
         fun onClickRemoveImageButton(view: View, position: Int)
-    }
-
-    private var onClickItemListener: OnItemClickListener? = null
-
-    fun onClickItemListener(listener: OnItemClickListener) {
-        this.onClickItemListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.Holder {
@@ -73,9 +67,10 @@ class HomeAdapter(
                 itemView.removeImageButton.visibility = GONE
             }
 
-            itemView.removeImageButton.setOnClickListener {
-                onClickItemListener?.onClickRemoveImageButton(it, adapterPosition)
-            }
+            onItemClickListener.onClickRemoveImageButton(
+                itemView.removeImageButton,
+                adapterPosition
+            )
         }
 
         private fun loadBitmap(directory: File?, image: String) {
@@ -84,7 +79,6 @@ class HomeAdapter(
             val bitmap = BitmapFactory.decodeStream(inputStream)
             Glide.with(context)
                 .load(bitmap)
-                .apply(RequestOptions().override(250, 250))
                 .into(itemView.dogImageView)
         }
     }
