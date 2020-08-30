@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.your_puppy_diary.main.MainTapFragment"
+        android:name="com.puppy_diary.your_puppy_diary.main.MainTapFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.your_puppy_diary.main.SecondFragment"
+        android:name="com.puppy_diary.your_puppy_diary.main.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

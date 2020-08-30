@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.your_puppy_diary.main.ui.home.HomeFragment"
+        android:name="com.puppy_diary.your_puppy_diary.main.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/home_frag" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.your_puppy_diary.main.ui.dashboard.DashboardFragment"
+        android:name="com.puppy_diary.your_puppy_diary.main.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/dashboard_frag" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.your_puppy_diary.main.ui.notifications.NotificationsFragmentImpl"
+        android:name="com.puppy_diary.your_puppy_diary.main.ui.notifications.NotificationsFragmentImpl"
         android:label="@string/title_notifications"
         tools:layout="@layout/notifications_frag" />
 </navigation>
